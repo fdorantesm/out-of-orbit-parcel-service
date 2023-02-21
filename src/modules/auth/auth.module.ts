@@ -9,12 +9,15 @@ import { LoginUseCase } from './application/use-cases/login.use-case';
 import { tokenConfigLoader } from './application/config/loaders/token.config-loader';
 import { TokenService } from './application/services/token.service';
 import { RegisterUseCase } from './application/use-cases/register.use-case';
-import { JwtStrategy } from './infrastructure/http/passport/jwt/jwt.strategy';
+import { JwtStrategy } from './infrastructure/http/passport/jwt.strategy';
 import { JwtGuard } from './application/guards/jwt.guard';
 import { ValidateBackofficeTokenUseCase } from './application/use-cases/validate-backoffice-token.use-case';
 import { JwtConfiguration } from '@app/common/types/jwt/jwt.configuration';
 import { MeUseCase } from './application/use-cases/me-use-case';
 import { SharedModule } from '../shared/shared.module';
+import { BearerAuthGuard } from './application/guards/bearer.guard';
+import { BearerStrategy } from './infrastructure/http/passport/bearer.strategy';
+import { ValidateApiKeyUseCase } from './application/use-cases/validate-api-key.use-case';
 
 @Module({
   imports: [
@@ -41,8 +44,11 @@ import { SharedModule } from '../shared/shared.module';
     RegisterUseCase,
     JwtStrategy,
     JwtGuard,
+    BearerAuthGuard,
+    BearerStrategy,
     ValidateBackofficeTokenUseCase,
     MeUseCase,
+    ValidateApiKeyUseCase,
   ],
   exports: [TokenService],
   controllers: [AuthController],

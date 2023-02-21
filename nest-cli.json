@@ -22,6 +22,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/id-generator/tsconfig.lib.json"
       }
+    },
+    "api-key-generator": {
+      "type": "library",
+      "root": "libs/api-key-generator",
+      "entryFile": "index",
+      "sourceRoot": "libs/api-key-generator/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/api-key-generator/tsconfig.lib.json"
+      }
     }
   }
 }

@@ -27,7 +27,9 @@
         "libs/mongoose-hide-object-id/src/*"
       ],
       "@app/id-generator": ["libs/id-generator/src"],
-      "@app/id-generator/*": ["libs/id-generator/src/*"]
+      "@app/id-generator/*": ["libs/id-generator/src/*"],
+      "@app/api-key-generator": ["libs/api-key-generator/src"],
+      "@app/api-key-generator/*": ["libs/api-key-generator/src/*"]
     }
   }
 }
