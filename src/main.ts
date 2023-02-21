@@ -38,10 +38,18 @@ async function bootstrap() {
   const documentBuilder = new DocumentBuilder()
     .setTitle('API Docs')
     .setDescription('API Reference')
-    .addBearerAuth()
-    .build();
+    .addBearerAuth();
 
-  const document = SwaggerModule.createDocument(app, documentBuilder);
+  documentBuilder.addApiKey(
+    {
+      description: 'API Key',
+      bearerFormat: 'ApiKey XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX',
+      type: 'apiKey',
+    },
+    'Authorization',
+  );
+
+  const document = SwaggerModule.createDocument(app, documentBuilder.build());
   SwaggerModule.setup('docs', app, document);
 
   app.listen(port, host, () => {

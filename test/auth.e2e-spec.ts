@@ -9,11 +9,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersService } from 'src/modules/users/infrastructure/database/services/users.service';
 import { Scope } from 'src/modules/users/domain/enums/scope.enum';
 import { CoreModule } from 'src/core/core.module';
+import { ApiKeyService } from 'src/modules/api-keys/infrastructure/database/services/api-key.service';
+import { ApiKeyFixture } from './fixtures/api-key.fixture';
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;
   let moduleFixture: TestingModule;
   let usersService: UsersService;
+  let apiKeyService: ApiKeyService;
 
   let mongod: MongoMemoryServer;
 
@@ -41,6 +44,7 @@ describe('AuthController (e2e)', () => {
     await app.init();
 
     usersService = app.get(UsersService);
+    apiKeyService = app.get(ApiKeyService);
   });
 
   afterEach(async () => {
@@ -94,5 +98,14 @@ describe('AuthController (e2e)', () => {
       });
 
     expect(register.statusCode).toBe(HttpStatus.CREATED);
+  });
+
+  it('GET /auth/key', async () => {
+    await apiKeyService.create(ApiKeyFixture);
+    const me = await request(app.getHttpServer())
+      .get('/auth/key')
+      .set('Authorization', `ApiKey ${ApiKeyFixture.key}`);
+
+    expect(me.statusCode).toBe(HttpStatus.OK);
   });
 });
