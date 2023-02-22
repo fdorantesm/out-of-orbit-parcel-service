@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { UsersModule } from '../users/users.module';
 import { DatabaseModule } from 'src/database/database.module';
 import { ApiKeysModule } from '../api-keys/api-keys.module';
+import { ShipmentsModule } from '../shipments/shipments.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ApiKeysModule } from '../api-keys/api-keys.module';
     AuthModule,
     UsersModule,
     ApiKeysModule,
+    ShipmentsModule,
   ],
 })
 export class AppModule {}

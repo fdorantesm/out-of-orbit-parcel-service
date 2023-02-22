@@ -10,7 +10,7 @@ import { UsersService } from 'src/modules/users/infrastructure/database/services
 import { Scope } from 'src/modules/users/domain/enums/scope.enum';
 import { CoreModule } from 'src/core/core.module';
 import { ApiKeyService } from 'src/modules/api-keys/infrastructure/database/services/api-key.service';
-import { ApiKeyFixture } from './fixtures/api-key.fixture';
+import { ApiKeyFixture } from './fixtures/api-keys/api-key.fixture';
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;

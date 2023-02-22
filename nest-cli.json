@@ -31,6 +31,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/api-key-generator/tsconfig.lib.json"
       }
+    },
+    "short-id-generator": {
+      "type": "library",
+      "root": "libs/short-id-generator",
+      "entryFile": "index",
+      "sourceRoot": "libs/short-id-generator/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/short-id-generator/tsconfig.lib.json"
+      }
     }
   }
 }
