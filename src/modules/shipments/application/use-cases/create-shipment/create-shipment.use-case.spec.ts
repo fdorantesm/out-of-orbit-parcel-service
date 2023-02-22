@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { CreateShipmentUseCase } from './create-shipment.use-case';
 import { ShipmentStatus } from 'src/modules/shipments/domain/enums/status.enum';
-import { createShipmentFixture } from 'test/fixtures/shipments/create-shipment.fixture';
 import { ShipmentsMemoryRepository } from 'src/modules/shipments/infrastructure/database/repositories/shipments.memory.repository';
 import { ShipmentsService } from 'src/modules/shipments/infrastructure/database/services/shipments.service';
 import { IdGeneratorModule } from '@app/id-generator';
