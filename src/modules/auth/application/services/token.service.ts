@@ -17,7 +17,7 @@ export class TokenService {
     };
   }
 
-  public async decode(token: string): Promise<TokenPayloadDto> {
+  public decode(token: string): TokenPayloadDto {
     return this.jwtService.decode(token) as TokenPayloadDto;
   }
 }

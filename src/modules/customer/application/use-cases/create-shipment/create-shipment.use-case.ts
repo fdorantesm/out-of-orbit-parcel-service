@@ -5,7 +5,6 @@ import { UseCase } from 'libs/domain/src';
 import { CreateShipmentUseCasePayload } from 'src/modules/shipments/application/interfaces/create-shipment/use-case-payload.interface';
 import { CreateShipmentCommand } from 'src/modules/shipments/domain/commands';
 import { ShipmentEntity } from 'src/modules/shipments/domain/entities/shipment.entity';
-import { CreateShipmentDto } from 'src/modules/shipments/infrastructure/http/dtos/create-shipment.dto';
 
 @Injectable()
 export class CreateShipmentUseCase implements UseCase {

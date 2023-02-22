@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+
 import { CrudRepository } from 'src/core/utils/crud-repository.interface';
 import { ShipmentEntity } from 'src/modules/shipments/domain/entities/shipment.entity';
 import { Shipment } from 'src/modules/shipments/domain/interfaces/shipment.interface';
@@ -10,14 +11,14 @@ export class ShipmentsMemoryRepository
 {
   private shipmentList: Shipment[] = shipmentList;
 
-  public async create(data: Shipment): Promise<ShipmentEntity> {
+  public create(data: Shipment): ShipmentEntity {
     this.shipmentList.push(ShipmentEntity.create(data));
-    return await ShipmentEntity.create(data);
+    return ShipmentEntity.create(data);
   }
 
   // eslint-disable-next-line
-  public async find(filter: Partial<Shipment>): Promise<ShipmentEntity[]> {
-    return await this.shipmentList.map((shipment) =>
+  public find(filter: Partial<Shipment>): ShipmentEntity[] {
+    return this.shipmentList.map((shipment) =>
       ShipmentEntity.create({
         uuid: shipment.uuid,
         trackingNumber: shipment.trackingNumber,
@@ -61,7 +62,7 @@ export class ShipmentsMemoryRepository
     );
   }
 
-  public async findOne(filter: Partial<Shipment>): Promise<ShipmentEntity> {
+  public findOne(filter: Partial<Shipment>): ShipmentEntity {
     const shipmentExists = this.shipmentList.find(
       (shipment) => filter.trackingNumber === shipment.trackingNumber,
     );
@@ -71,13 +72,13 @@ export class ShipmentsMemoryRepository
     }
   }
 
-  public async update(
+  public update(
     filter: Partial<Shipment>,
     data: Partial<ShipmentEntity>,
-  ): Promise<ShipmentEntity> {
-    const shipment = await this.findOne(filter);
+  ): ShipmentEntity {
+    const shipment = this.findOne(filter);
     return ShipmentEntity.create({ ...shipment, ...data });
   }
   // eslint-disable-next-line
-  public async delete(filter?: Partial<Shipment>): Promise<void> {}
+  public delete(filter?: Partial<Shipment>): void {}
 }
