@@ -13,6 +13,8 @@ import { CancelShipmentUseCase } from './application/use-cases/cancel-shipment/c
 import { IdGeneratorModule } from '@app/id-generator';
 import { ShortIdGeneratorModule } from '@app/short-id-generator';
 import { CqrsModule } from '@nestjs/cqrs';
+import { QueryHandlers } from './domain/queries';
+import { CommandHandlers } from './domain/commands';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { CqrsModule } from '@nestjs/cqrs';
       provide: 'ShipmentsRepository',
       useClass: ShipmentsRepository,
     },
+    ...QueryHandlers,
+    ...CommandHandlers,
     ShipmentsService,
     CancelShipmentUseCase,
     CreateShipmentUseCase,
