@@ -1,10 +1,10 @@
-export interface CrudRepository<Entity> {
-  create(data: Entity): Entity | Promise<Entity>;
-  find(filter: Partial<Entity>): Entity[] | Promise<Entity[]>;
-  findOne(filter: Partial<Entity>): Entity | Promise<Entity>;
+export interface CrudRepository<Entity, Interface> {
+  create(data: Interface): Entity | Promise<Entity>;
+  find(filter: Partial<Interface>): Entity[] | Promise<Entity[]>;
+  findOne(filter: Partial<Interface>): Entity | Promise<Entity>;
   update(
-    filter: Partial<Entity>,
+    filter: Partial<Interface>,
     data: Partial<Entity>,
   ): Entity | Promise<Entity>;
-  delete(filter: Partial<Entity>): void;
+  delete(filter: Partial<Interface>): void;
 }
