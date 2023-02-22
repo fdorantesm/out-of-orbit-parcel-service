@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsLatitude } from 'class-validator';
+import { IsLatitude, IsLongitude } from 'class-validator';
 
 export class LocationDto {
   @ApiProperty({ example: '19.42847' })
@@ -7,6 +7,6 @@ export class LocationDto {
   public latitude: number;
 
   @ApiProperty({ example: '-99.12766' })
-  @IsLatitude()
+  @IsLongitude()
   public longitude: number;
 }

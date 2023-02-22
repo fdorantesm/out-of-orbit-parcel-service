@@ -33,7 +33,7 @@ export class ShipmentEntity implements Shipment {
 
   public isCancelableWithRefund(): boolean {
     const createdAt = dateService.create(this.createdAt);
-    const diffFromNow = dateService.diff(createdAt, new Date(), 'minutes');
+    const diffFromNow = dateService.diff(new Date(), createdAt, 'minutes');
     return diffFromNow <= 2;
   }
 
@@ -50,11 +50,15 @@ export class ShipmentEntity implements Shipment {
   }
 
   public isCancelled(): boolean {
-    return this.status === ShipmentStatus.CANCELLED;
+    return this.hasStatus(ShipmentStatus.CANCELLED);
   }
 
   public hasStatus(status: ShipmentStatus): boolean {
     return this.status === status;
+  }
+
+  public static isTooHeavy(weight: number): boolean {
+    return weight > 25000;
   }
 
   public toJson() {

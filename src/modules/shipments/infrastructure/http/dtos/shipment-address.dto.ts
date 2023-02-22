@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsOptional, IsString, Matches } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsObject,
+  IsOptional,
+  IsString,
+  Matches,
+  ValidateNested,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { LocationDto } from './shipment-location.dto';
 import { Type } from 'class-transformer';
@@ -41,6 +48,8 @@ export class ShipmentAddressDto {
   public state: string;
 
   @ApiProperty()
+  @IsObject()
   @Type(() => LocationDto)
+  @ValidateNested({ each: true })
   public location: LocationDto;
 }
