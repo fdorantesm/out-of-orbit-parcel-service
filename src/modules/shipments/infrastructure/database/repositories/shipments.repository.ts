@@ -48,6 +48,6 @@ export class ShipmentsRepository
 
   public async delete(filter: Partial<ShipmentEntity>): Promise<boolean> {
     const query = await this.shipmentModel.deleteOne(filter).exec();
-    return !!query.deletedCount;
+    return Boolean(query.deletedCount);
   }
 }

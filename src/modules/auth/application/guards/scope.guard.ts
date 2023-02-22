@@ -29,7 +29,7 @@ export class ScopeGuard implements CanActivate {
     }
 
     const hasRole = () =>
-      user.scopes.some((role) => !!scopes.find((item) => item === role));
+      user.scopes.some((role) => Boolean(scopes.find((item) => item === role)));
 
     const isAllowed = user && user.scopes && hasRole();
 
