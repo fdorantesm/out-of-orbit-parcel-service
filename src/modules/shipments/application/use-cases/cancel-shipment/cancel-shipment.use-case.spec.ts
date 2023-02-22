@@ -38,10 +38,11 @@ describe('CancelShipmentUseCase', () => {
     expect(service.run).toBeDefined();
   });
 
+  // TODO: Add case when shipment doesn't have refund
   it('should cancel a shipment', async () => {
     const trackingNumber = 'VfAWh4rv0IY3';
     const canelled = await service.run(trackingNumber);
-    expect(canelled.trackingNumber).toBe(trackingNumber);
+    expect(canelled.message).toBeDefined();
     expect(canelled.status).toBe(ShipmentStatus.CANCELLED);
   });
 

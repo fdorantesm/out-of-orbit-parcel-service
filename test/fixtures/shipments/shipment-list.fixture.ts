@@ -197,7 +197,7 @@ export const shipmentList: Shipment[] = [
     createdAt: new Date('2023-02-22T09:25:20.560-06:00'),
   },
   {
-    uuid: '74b62c1b-2766-4af8-bcfe-3cfbf2432957',
+    uuid: 'c3eebb84-4a60-4263-9a72-439608c5a1fa',
     trackingNumber: 'pCFtARFluNiP',
     origin: {
       street: 'Av Paseo del Moral',
