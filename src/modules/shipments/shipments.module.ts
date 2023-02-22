@@ -12,9 +12,11 @@ import { UpdateShipmentStatusUseCase } from './application/use-cases/update-ship
 import { CancelShipmentUseCase } from './application/use-cases/cancel-shipment/cancel-shipment.use-case';
 import { IdGeneratorModule } from '@app/id-generator';
 import { ShortIdGeneratorModule } from '@app/short-id-generator';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
   imports: [
+    CqrsModule,
     MongooseModule.forFeature([ShipmentModelConfig]),
     IdGeneratorModule,
     ShortIdGeneratorModule,
