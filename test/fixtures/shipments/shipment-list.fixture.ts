@@ -116,7 +116,7 @@ export const shipmentList: Shipment[] = [
     },
     userId: '9baed68d-8a53-43a4-a3fd-20bfe96b3e7f',
     status: ShipmentStatus.CREATED,
-    createdAt: new Date('2023-02-22T09:25:20.560-06:00'),
+    createdAt: new Date('2023-02-21T09:25:20.560-06:00'),
   },
   {
     uuid: 'efee9fc4-51eb-4c44-ac3d-d489ff73c674',

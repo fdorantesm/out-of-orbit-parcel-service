@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import uuidApiKey from 'uuid-apikey';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const uuidApiKey = require('uuid-apikey');
 
 import { ApiKeyPair } from './api-key-pair.type';
 import { ApiKeyGeneratorService } from './api-key-generator.interface';

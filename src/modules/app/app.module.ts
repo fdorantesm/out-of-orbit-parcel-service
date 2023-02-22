@@ -9,6 +9,7 @@ import { DatabaseModule } from 'src/database/database.module';
 import { ApiKeysModule } from '../api-keys/api-keys.module';
 import { ShipmentsModule } from '../shipments/shipments.module';
 import { RefundsModule } from '../refunds/refunds.module';
+import { CustomerModule } from '../customer/customer.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { RefundsModule } from '../refunds/refunds.module';
     ApiKeysModule,
     ShipmentsModule,
     RefundsModule,
+    CustomerModule,
   ],
 })
 export class AppModule {}

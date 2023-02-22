@@ -50,6 +50,13 @@ export class CancelShipmentUseCase implements UseCase {
       shipment.cancel();
     }
 
+    await this.shipmentsService.update(
+      { trackingNumber: shipment.trackingNumber },
+      {
+        status: ShipmentStatus.CANCELLED,
+      },
+    );
+
     return { status: ShipmentStatus.CANCELLED, message };
   }
 }
