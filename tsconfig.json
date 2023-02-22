@@ -18,16 +18,42 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@app/common": ["libs/common/src"],
-      "@app/common/*": ["libs/common/src/*"],
-      "@app/mongoose-hide-object-id": ["libs/mongoose-hide-object-id/src"],
-      "@app/mongoose-hide-object-id/*": ["libs/mongoose-hide-object-id/src/*"],
-      "@plugins/mongoose-hide-object-id": ["libs/mongoose-hide-object-id/src"],
+      "@app/common": [
+        "libs/common/src"
+      ],
+      "@app/common/*": [
+        "libs/common/src/*"
+      ],
+      "@app/mongoose-hide-object-id": [
+        "libs/mongoose-hide-object-id/src"
+      ],
+      "@app/mongoose-hide-object-id/*": [
+        "libs/mongoose-hide-object-id/src/*"
+      ],
+      "@plugins/mongoose-hide-object-id": [
+        "libs/mongoose-hide-object-id/src"
+      ],
       "@plugins/mongoose-hide-object-id/*": [
         "libs/mongoose-hide-object-id/src/*"
       ],
-      "@app/id-generator": ["libs/id-generator/src"],
-      "@app/id-generator/*": ["libs/id-generator/src/*"]
+      "@app/id-generator": [
+        "libs/id-generator/src"
+      ],
+      "@app/id-generator/*": [
+        "libs/id-generator/src/*"
+      ],
+      "@app/api-key-generator": [
+        "libs/api-key-generator/src"
+      ],
+      "@app/api-key-generator/*": [
+        "libs/api-key-generator/src/*"
+      ],
+      "@app/short-id-generator": [
+        "libs/short-id-generator/src"
+      ],
+      "@app/short-id-generator/*": [
+        "libs/short-id-generator/src/*"
+      ]
     }
   }
 }

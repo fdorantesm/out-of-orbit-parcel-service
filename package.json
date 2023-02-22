@@ -14,11 +14,12 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json --runInBand",
+    "mondodb": "ts-node scripts/mongodb.ts",
+    "test": "NODE_ENV=testing jest",
+    "test:watch": "NODE_ENV=testing jest --watch",
+    "test:cov": "NODE_ENV=testing jest --coverage",
+    "test:debug": "NODE_ENV=testing node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "NODE_ENV=testing jest --config ./test/jest-e2e.json --runInBand",
     "launch": "docker-compose up -d",
     "bye": "docker-compose down"
   },
@@ -46,7 +47,9 @@
     "luxon": "^3.0.4",
     "mongoose": "^6.5.2",
     "mongoose-paginate": "^5.0.3",
+    "npm-run-all": "^4.1.5",
     "passport": "^0.6.0",
+    "passport-headerapikey": "^1.2.2",
     "passport-jwt": "^4.0.0",
     "ramda": "^0.28.0",
     "reflect-metadata": "^0.1.13",
@@ -55,6 +58,7 @@
     "swagger-ui-express": "^4.3.0",
     "utility": "^1.17.0",
     "uuid": "^8.3.2",
+    "uuid-apikey": "^1.5.3",
     "volleyball": "^1.5.1"
   },
   "devDependencies": {
@@ -67,22 +71,24 @@
     "@types/multer": "^1.4.7",
     "@types/node": "^16.0.0",
     "@types/supertest": "^2.0.11",
+    "@types/uuid-apikey": "^1.5.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-yml": "^1.5.0",
     "husky": "^7.0.4",
     "jest": "^29.3.1",
-    "mongodb-memory-server": "^8.10.2",
-    "mongodb-memory-server-core": "^8.10.2",
+    "mongodb-memory-server": "^8.8.0",
+    "mongodb-memory-server-core": "^8.8.0",
     "prettier": "^2.3.2",
     "source-map-support": "^0.5.20",
     "supertest": "^6.3.3",
     "ts-jest": "^29.0.3",
     "ts-loader": "^9.2.3",
-    "ts-node": "^10.0.0",
+    "ts-node": "^10.9.1",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
   },
@@ -108,9 +114,12 @@
     ],
     "moduleNameMapper": {
       "^src/(.*)": "<rootDir>/src/$1",
+      "^test/(.*)": "<rootDir>/test/$1",
       "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1",
       "^@plugins/mongoose-hide-object-id(|/.*)$": "<rootDir>/libs/mongoose-hide-object-id/src/$1",
-      "^@app/id-generator(|/.*)$": "<rootDir>/libs/id-generator/src/$1"
+      "^@app/id-generator(|/.*)$": "<rootDir>/libs/id-generator/src/$1",
+      "^@app/api-key-generator(|/.*)$": "<rootDir>/libs/api-key-generator/src/$1",
+      "^@app/short-id-generator(|/.*)$": "<rootDir>/libs/short-id-generator/src/$1"
     }
   }
 }

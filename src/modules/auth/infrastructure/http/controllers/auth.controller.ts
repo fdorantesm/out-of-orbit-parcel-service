@@ -1,4 +1,3 @@
-import { ConfigService } from '@nestjs/config';
 import {
   Body,
   Controller,
@@ -12,8 +11,10 @@ import {
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiNoContentResponse,
   ApiOperation,
   ApiResponse,
+  ApiSecurity,
   ApiTags,
   ApiTooManyRequestsResponse,
   ApiUnauthorizedResponse,
@@ -26,6 +27,7 @@ import { RegisterRequestDto } from '../dtos/register-request.dto';
 import { LoginUseCase } from './../../../application/use-cases/login.use-case';
 import { RegisterUseCase } from './../../../application/use-cases/register.use-case';
 import { UserRequest } from '@app/common/types/http/user-request.type';
+import { BearerAuthGuard } from 'src/modules/auth/application/guards/bearer.guard';
 
 @ApiTags('Auth')
 @Controller({
@@ -37,7 +39,6 @@ export class AuthController {
     private readonly loginUseCase: LoginUseCase,
     private readonly registerUseCase: RegisterUseCase,
     private readonly meUseCase: MeUseCase,
-    private readonly configService: ConfigService,
   ) {}
 
   @ApiOperation({ summary: 'Sign in with an account' })
@@ -111,4 +112,23 @@ export class AuthController {
   public async me(@Req() request: UserRequest) {
     return await this.meUseCase.exec(request.user.id);
   }
+
+  @ApiSecurity('Authorization')
+  @ApiOperation({ summary: 'Validate API key' })
+  @ApiNoContentResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'API key is valid',
+  })
+  @ApiUnauthorizedResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Invalid API key',
+  })
+  @ApiTooManyRequestsResponse({
+    status: HttpStatus.TOO_MANY_REQUESTS,
+    description: 'Too many requests in a short time',
+  })
+  @UseGuards(BearerAuthGuard)
+  @Get('/key')
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  public us(): void {}
 }
