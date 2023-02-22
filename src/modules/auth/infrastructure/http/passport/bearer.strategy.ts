@@ -9,7 +9,7 @@ export class BearerStrategy extends PassportStrategy(HeaderAPIKeyStrategy) {
     super({ header: 'Authorization', prefix: 'ApiKey ' }, false);
   }
 
-  async validate(apiKey: string): Promise<boolean> {
+  public validate(apiKey: string): Promise<boolean> {
     return this.validateApiKeyUseCase.run(apiKey);
   }
 }
