@@ -8,7 +8,7 @@ import { FindApiKeyQuery } from 'src/modules/api-keys/domain/queries';
 export class ValidateApiKeyUseCase implements UseCase {
   constructor(private readonly queryBus: QueryBus) {}
 
-  public async run(apiKey: string): Promise<boolean> {
+  public run(apiKey: string): Promise<boolean> {
     return this.queryBus.execute(new FindApiKeyQuery(apiKey));
   }
 }

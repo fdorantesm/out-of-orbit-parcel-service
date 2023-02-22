@@ -9,6 +9,6 @@ export class ListShipmentsUseCase implements UseCase {
   constructor(private readonly shipmentsService: ShipmentsService) {}
 
   public async run(): Promise<ShipmentEntity[]> {
-    return this.shipmentsService.find({});
+    return await this.shipmentsService.find({});
   }
 }

@@ -12,12 +12,12 @@ export class ShipmentsMemoryRepository
 
   public async create(data: Shipment): Promise<ShipmentEntity> {
     this.shipmentList.push(ShipmentEntity.create(data));
-    return ShipmentEntity.create(data);
+    return await ShipmentEntity.create(data);
   }
 
   // eslint-disable-next-line
   public async find(filter: Partial<Shipment>): Promise<ShipmentEntity[]> {
-    return this.shipmentList.map((shipment) =>
+    return await this.shipmentList.map((shipment) =>
       ShipmentEntity.create({
         uuid: shipment.uuid,
         trackingNumber: shipment.trackingNumber,

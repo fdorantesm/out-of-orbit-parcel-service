@@ -97,7 +97,7 @@ export class UserRepository {
   public async updateProfile(userId: string, profile: Partial<ProfileEntity>) {
     const profileData = {};
 
-    Object.keys(profile).map((field) => {
+    Object.keys(profile).forEach((field) => {
       profileData[`profile.${field}`] = profile[field];
     });
 

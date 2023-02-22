@@ -7,7 +7,7 @@ import { ValidateApiKeyUseCase } from 'src/modules/api-keys/application/use-case
 export class FindApiKeyQueryHandler implements IQueryHandler<FindApiKeyQuery> {
   constructor(private readonly validateApiKeyUseCase: ValidateApiKeyUseCase) {}
 
-  public async execute(query: FindApiKeyQuery): Promise<boolean> {
+  public execute(query: FindApiKeyQuery): Promise<boolean> {
     return this.validateApiKeyUseCase.exec(query.key);
   }
 }
