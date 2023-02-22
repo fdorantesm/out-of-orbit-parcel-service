@@ -32,10 +32,10 @@ export class ShipmentEntity implements Shipment {
   }
 
   public isCancelableWithRefund(): boolean {
-    const now = new Date();
+    const now = dateService.create();
     const createdAt = dateService.create(this.createdAt);
-    const diffFromNow = dateService.diff(createdAt, now, 'minutes');
-    return diffFromNow <= 2;
+    const diffFromNow = dateService.diff(now, createdAt, 'minutes');
+    return diffFromNow <= 2 && diffFromNow >= 0;
   }
 
   public cancel() {

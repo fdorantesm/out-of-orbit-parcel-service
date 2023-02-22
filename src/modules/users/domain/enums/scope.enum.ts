@@ -1,4 +1,4 @@
 export enum Scope {
-  WEB = 'WEB',
+  WEB = 'web',
   ROOT = 'root',
 }
