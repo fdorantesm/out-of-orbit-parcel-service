@@ -15,6 +15,7 @@ import { ShortIdGeneratorModule } from '@app/short-id-generator';
 import { CqrsModule } from '@nestjs/cqrs';
 import { QueryHandlers } from './domain/queries';
 import { CommandHandlers } from './domain/commands';
+import { SharedModule } from '../shared/shared.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { CommandHandlers } from './domain/commands';
     MongooseModule.forFeature([ShipmentModelConfig]),
     IdGeneratorModule,
     ShortIdGeneratorModule,
+    SharedModule,
   ],
   providers: [
     {

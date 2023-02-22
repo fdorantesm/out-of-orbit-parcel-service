@@ -11,7 +11,8 @@ import { CouldCancelDeliveredShipmentException } from 'src/modules/shipments/dom
 import { CouldCancelInDeliveryShipmentException } from 'src/modules/shipments/domain/exceptions/couldnt-cancel-in-delivery-shipment.exception';
 import { ShipmentAlreadyCancelledException } from 'src/modules/shipments/domain/exceptions/shipment-already-cancelled.exception';
 import { CreateShipmentUseCase } from '../create-shipment/create-shipment.use-case';
-import { createShipmentFixture } from 'test/fixtures/shipments/create-shipment.fixture';
+import { createShipmentObject } from 'test/utils/create-shipment-object';
+import { SharedModule } from 'src/modules/shared/shared.module';
 
 describe('CancelShipmentUseCase', () => {
   let service: CancelShipmentUseCase;
@@ -19,7 +20,12 @@ describe('CancelShipmentUseCase', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [CqrsModule, IdGeneratorModule, ShortIdGeneratorModule],
+      imports: [
+        CqrsModule,
+        IdGeneratorModule,
+        ShortIdGeneratorModule,
+        SharedModule,
+      ],
       providers: [
         {
           provide: 'ShipmentsRepository',
@@ -53,7 +59,7 @@ describe('CancelShipmentUseCase', () => {
   });
 
   it('should cancel a shipment with refund', async () => {
-    const shipment = await createShipmentUseCase.run(createShipmentFixture);
+    const shipment = await createShipmentUseCase.run(createShipmentObject());
     const cancelled = await service.run(shipment.trackingNumber);
     expect(cancelled.message).toBe('Shipment was cancelled with a refund');
     expect(cancelled.status).toBe(ShipmentStatus.CANCELLED);

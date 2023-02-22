@@ -1,3 +1,4 @@
+import { PackageSize } from '../enums/size.enum';
 import { ShipmentStatus } from '../enums/status.enum';
 import { ShipmentAddress } from '../interfaces/address.interface';
 import { ShipmentPackage } from '../interfaces/package.interface';
@@ -60,6 +61,21 @@ export class ShipmentEntity implements Shipment {
 
   public static isTooHeavy(weight: number): boolean {
     return weight > 25000;
+  }
+
+  public static calcSize(weight: number) {
+    const size =
+      weight <= 5000
+        ? PackageSize.SMALL
+        : weight <= 15000
+        ? PackageSize.MEDIUM
+        : PackageSize.LARGE;
+
+    return size;
+  }
+
+  public static getInitialStatus() {
+    return ShipmentStatus.CREATED;
   }
 
   public toJson() {

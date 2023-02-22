@@ -6,6 +6,8 @@ import { createShipmentFixture } from 'test/fixtures/shipments/create-shipment.f
 import { ShipmentStatus } from 'src/modules/shipments/domain/enums/status.enum';
 import { IdGeneratorModule } from '@app/id-generator';
 import { ShortIdGeneratorModule } from '@app/short-id-generator';
+import { ShipmentEntity } from 'src/modules/shipments/domain/entities/shipment.entity';
+import { createShipmentObject } from 'test/utils/create-shipment-object';
 
 describe('ShipmentsService', () => {
   let service: ShipmentsService;
@@ -52,7 +54,8 @@ describe('ShipmentsService', () => {
   });
 
   it('Should creates a shipment', async () => {
-    const shipment = await service.create(createShipmentFixture);
+    const weight = createShipmentFixture.packet.weight;
+    const shipment = await service.create(createShipmentObject());
     expect(shipment).toBeDefined();
     expect(shipment.status).toBe(ShipmentStatus.CREATED);
   });
