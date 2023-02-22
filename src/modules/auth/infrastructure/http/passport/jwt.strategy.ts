@@ -18,7 +18,7 @@ export class JwtStrategy
     });
   }
 
-  public async validate(payload: TokenPayloadDto): Promise<TokenPayloadDto> {
+  public validate(payload: TokenPayloadDto): TokenPayloadDto {
     try {
       return payload;
     } catch (error) {

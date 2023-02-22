@@ -8,7 +8,7 @@ export class ListUsersUseCase {
   constructor(private readonly usersService: UsersService) {}
 
   public async exec(filter: Partial<UserEntity>) {
-    const users = this.usersService.findCustomers(filter);
+    const users = await this.usersService.findCustomers(filter);
     return users;
   }
 }

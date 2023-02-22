@@ -17,7 +17,7 @@ describe('HealthController (e2e)', () => {
     await app.init();
   });
 
-  it('GET /health', async () => {
+  it('GET /health', () => {
     return request(app.getHttpServer())
       .get('/health')
       .expect(HttpStatus.NO_CONTENT);
