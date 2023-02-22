@@ -29,7 +29,7 @@ export class RegisterUseCase {
       UserEntity
     >(new FindUserCommand());
 
-    const subscriber = [Scope.MATCHES, Scope.TOPS];
+    const subscriber = [Scope.WEB];
     const scopes = isNotFirst ? subscriber : [Scope.ROOT, ...subscriber];
 
     const formatedEmail = email.toLowerCase();
