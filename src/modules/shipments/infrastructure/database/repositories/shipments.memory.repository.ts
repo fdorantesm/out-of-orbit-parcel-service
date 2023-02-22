@@ -11,6 +11,7 @@ export class ShipmentsMemoryRepository
   private shipmentList: Shipment[] = shipmentList;
 
   public async create(data: Shipment): Promise<ShipmentEntity> {
+    this.shipmentList.push(ShipmentEntity.create(data));
     return ShipmentEntity.create(data);
   }
 
