@@ -10,9 +10,12 @@ import { ShipmentStatus } from 'src/modules/shipments/domain/enums/status.enum';
 import { CouldCancelDeliveredShipmentException } from 'src/modules/shipments/domain/exceptions/couldnt-cancel-delivered-shipment.exception';
 import { CouldCancelInDeliveryShipmentException } from 'src/modules/shipments/domain/exceptions/couldnt-cancel-in-delivery-shipment.exception';
 import { ShipmentAlreadyCancelledException } from 'src/modules/shipments/domain/exceptions/shipment-already-cancelled.exception';
+import { CreateShipmentUseCase } from '../create-shipment/create-shipment.use-case';
+import { createShipmentFixture } from 'test/fixtures/shipments/create-shipment.fixture';
 
 describe('CancelShipmentUseCase', () => {
   let service: CancelShipmentUseCase;
+  let createShipmentUseCase: CreateShipmentUseCase;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -23,11 +26,15 @@ describe('CancelShipmentUseCase', () => {
           useClass: ShipmentsMemoryRepository,
         },
         CancelShipmentUseCase,
+        CreateShipmentUseCase,
         ShipmentsService,
       ],
     }).compile();
 
     service = module.get<CancelShipmentUseCase>(CancelShipmentUseCase);
+    createShipmentUseCase = module.get<CreateShipmentUseCase>(
+      CreateShipmentUseCase,
+    );
   });
 
   it('should be defined', () => {
@@ -38,12 +45,18 @@ describe('CancelShipmentUseCase', () => {
     expect(service.run).toBeDefined();
   });
 
-  // TODO: Add case when shipment doesn't have refund
-  it('should cancel a shipment', async () => {
+  it('should cancel a shipment without refund', async () => {
     const trackingNumber = 'VfAWh4rv0IY3';
-    const canelled = await service.run(trackingNumber);
-    expect(canelled.message).toBeDefined();
-    expect(canelled.status).toBe(ShipmentStatus.CANCELLED);
+    const cancelled = await service.run(trackingNumber);
+    expect(cancelled.message).toBe('Shipment was cancelled without a refund');
+    expect(cancelled.status).toBe(ShipmentStatus.CANCELLED);
+  });
+
+  it('should cancel a shipment with refund', async () => {
+    const shipment = await createShipmentUseCase.run(createShipmentFixture);
+    const cancelled = await service.run(shipment.trackingNumber);
+    expect(cancelled.message).toBe('Shipment was cancelled with a refund');
+    expect(cancelled.status).toBe(ShipmentStatus.CANCELLED);
   });
 
   it('should fails canceling a delivered shipment', async () => {
