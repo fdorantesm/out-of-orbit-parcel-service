@@ -79,7 +79,7 @@ export class UsersService {
     return user;
   }
 
-  public async updateProfile(userId: string, data: Partial<ProfileEntity>) {
+  public updateProfile(userId: string, data: Partial<ProfileEntity>) {
     return this.userRepository.updateProfile(userId, data);
   }
 }

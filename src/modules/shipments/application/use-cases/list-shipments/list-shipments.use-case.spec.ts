@@ -31,7 +31,7 @@ describe('ListShipmentsUseCase', () => {
 
   it('should returns a list of shipments', async () => {
     const shipments = await service.run();
-    shipments.map((shipment) => {
+    shipments.forEach((shipment) => {
       expect(shipment).toHaveProperty('uuid');
       expect(shipment).toHaveProperty('trackingNumber');
       expect(shipment).toHaveProperty('status');
