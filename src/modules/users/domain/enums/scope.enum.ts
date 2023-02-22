@@ -1,5 +1,4 @@
 export enum Scope {
-  MATCHES = 'matches',
-  TOPS = 'tops',
+  WEB = 'WEB',
   ROOT = 'root',
 }
