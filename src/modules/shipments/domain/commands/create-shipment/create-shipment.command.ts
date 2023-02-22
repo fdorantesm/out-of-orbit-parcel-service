@@ -1,7 +1,7 @@
 import { ICommand } from '@nestjs/cqrs';
 
-import { CreateShipmentPayload } from '../../interfaces/shipment.interface';
+import { CreateShipmentUseCasePayload } from 'src/modules/shipments/application/interfaces/create-shipment/use-case-payload.interface';
 
 export class CreateShipmentCommand implements ICommand {
-  constructor(public payload: CreateShipmentPayload) {}
+  constructor(public payload: CreateShipmentUseCasePayload) {}
 }

@@ -51,8 +51,8 @@ export class ShipmentsController {
   @UseGuards(JwtGuard, ScopeGuard)
   @Scopes(Scope.WEB)
   @Post('/')
-  public create(@Body() body: CreateShipmentDto) {
-    return this.createShipmentUseCase.run(body);
+  public create(@Body() body: CreateShipmentDto, @Req() req: UserRequest) {
+    return this.createShipmentUseCase.run({ ...body, userId: req.user.id });
   }
 
   @ApiOperation({ summary: 'List shipments' })

@@ -24,36 +24,8 @@ export class ShipmentsService
     private readonly shortIdGeneratorService: ShortIdGeneratorService,
   ) {}
 
-  public create(
-    data: CreateShipmentPayload,
-  ): ShipmentEntity | Promise<ShipmentEntity> {
-    // TODO: Receive uuid, userId, trackingNumber and size from a top level
-    const uuid = this.idGeneratorModule.exec();
-    const userId = this.idGeneratorModule.exec();
-    const trackingNumber = this.shortIdGeneratorService.exec(12);
-    const weight = data.packet.weight;
-    const size =
-      weight <= 5000
-        ? PackageSize.SMALL
-        : weight <= 15000
-        ? PackageSize.MEDIUM
-        : PackageSize.LARGE;
-
-    const shipment: Shipment = {
-      uuid,
-      userId,
-      trackingNumber,
-      origin: data.origin,
-      destination: data.destination,
-      packet: {
-        ...data.packet,
-        size,
-      },
-      status: ShipmentStatus.CREATED,
-      createdAt: new Date(),
-    };
-
-    return this.shipmentsRepository.create(shipment);
+  public create(data: Shipment): ShipmentEntity | Promise<ShipmentEntity> {
+    return this.shipmentsRepository.create(data);
   }
 
   public find(
