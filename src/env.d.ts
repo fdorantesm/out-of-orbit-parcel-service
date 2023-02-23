@@ -1,3 +1,4 @@
+/* ignore unused exports */
 declare global {
   namespace NodeJS {
     interface ProcessEnv {

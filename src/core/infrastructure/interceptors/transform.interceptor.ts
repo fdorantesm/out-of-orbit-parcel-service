@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { type } from 'ramda';
 
-export interface Response<T> {
+interface Response<T> {
   statusCode: number;
   data?: T;
 }

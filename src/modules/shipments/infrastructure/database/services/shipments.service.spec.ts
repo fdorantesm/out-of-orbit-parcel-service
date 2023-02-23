@@ -2,11 +2,9 @@ import { Test } from '@nestjs/testing';
 import { ShipmentsMemoryRepository } from '../repositories/shipments.memory.repository';
 import { ShipmentsService } from './shipments.service';
 import { shipmentList } from 'test/fixtures/shipments/shipment-list.fixture';
-import { createShipmentFixture } from 'test/fixtures/shipments/create-shipment.fixture';
 import { ShipmentStatus } from 'src/modules/shipments/domain/enums/status.enum';
 import { IdGeneratorModule } from '@app/id-generator';
 import { ShortIdGeneratorModule } from '@app/short-id-generator';
-import { ShipmentEntity } from 'src/modules/shipments/domain/entities/shipment.entity';
 import { createShipmentObject } from 'test/utils/create-shipment-object';
 
 describe('ShipmentsService', () => {
@@ -54,7 +52,6 @@ describe('ShipmentsService', () => {
   });
 
   it('Should creates a shipment', async () => {
-    const weight = createShipmentFixture.packet.weight;
     const shipment = await service.create(createShipmentObject());
     expect(shipment).toBeDefined();
     expect(shipment.status).toBe(ShipmentStatus.CREATED);

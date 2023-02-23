@@ -3,14 +3,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ShipmentsRepository } from '../repositories/shipments.repository';
 import { CrudRepository } from 'src/core/utils/crud-repository.interface';
 import { ShipmentEntity } from 'src/modules/shipments/domain/entities/shipment.entity';
-import {
-  CreateShipmentPayload,
-  Shipment,
-} from 'src/modules/shipments/domain/interfaces/shipment.interface';
-import { ShipmentStatus } from 'src/modules/shipments/domain/enums/status.enum';
+import { Shipment } from 'src/modules/shipments/domain/interfaces/shipment.interface';
 import { ID_GENERATOR_SERVICE, IdGeneratorService } from '@app/id-generator';
 import { ShortIdGeneratorService } from '@app/short-id-generator';
-import { PackageSize } from 'src/modules/shipments/domain/enums/size.enum';
 
 @Injectable()
 export class ShipmentsService
