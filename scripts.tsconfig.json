@@ -2,18 +2,10 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "scripts": [
-        "scripts"
-      ],
-      "scripts/*": [
-        "scripts/*"
-      ],
-      "src": [
-        "src"
-      ],
-      "src/*": [
-        "src/*"
-      ]
+      "scripts": ["scripts"],
+      "scripts/*": ["scripts/*"],
+      "src": ["src"],
+      "src/*": ["src/*"]
     }
   }
 }
