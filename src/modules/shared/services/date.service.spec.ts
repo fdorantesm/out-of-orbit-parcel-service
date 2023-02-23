@@ -30,12 +30,6 @@ describe('DateService', () => {
     expect(christmasDate.toDateString()).toBe(christmasDateTime.toDateString());
   });
 
-  it('Create Date range pair', () => {
-    const minutes = 5;
-    const { from, to } = service.withinRange(minutes, 'minutes');
-    expect(to.getMinutes() - from.getMinutes()).toBe(minutes);
-  });
-
   it('Add 1 day to date object', () => {
     const day = 1;
     const now = service.create();

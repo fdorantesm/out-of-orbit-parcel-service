@@ -22,7 +22,7 @@ export class ValidateApiKeyUseCase {
 
     const apiKey = await this.apiKeyService.find({ key });
 
-    if (!this.apiKeyGeneratorService.check(key, apiKey.keyUuid)) {
+    if (!apiKey || !this.apiKeyGeneratorService.check(key, apiKey?.keyUuid)) {
       throw new UnauthorizedException();
     }
 

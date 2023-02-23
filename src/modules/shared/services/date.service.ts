@@ -18,14 +18,6 @@ export class DateService {
     return instance;
   }
 
-  public withinRange(value: number, unit: string): { from: Date; to: Date } {
-    const from = this.create();
-    const to = DateTime.fromJSDate(this.create())
-      .plus({ [unit]: value })
-      .toJSDate();
-    return { from, to };
-  }
-
   public in(value: number, unit: string): Date {
     const now = DateTime.fromJSDate(this.create());
     return now.plus({ [unit]: value }).toJSDate();
