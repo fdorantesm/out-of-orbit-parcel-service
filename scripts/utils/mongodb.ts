@@ -11,7 +11,6 @@ export async function getConnection(): Promise<MongoClient> {
     config.port,
     config.username,
     config.password,
-    config.database,
   );
 
   const client = new MongoClient(uri);
