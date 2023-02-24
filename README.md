@@ -20,6 +20,7 @@ $ yarn install
 ### Seeds
 
 #### Seed API Keys
+
 ```sh
 yarn scripts:seed-api-keys
 ```
@@ -52,14 +53,14 @@ $ npm run test:cov
 
 ### References
 
-|         |                             |
-| ------- | --------------------------- |
-| API Ref | https://localhost:3000/docs |
+|         |                                                                                    |
+| ------- | ---------------------------------------------------------------------------------- |
+| API Ref | https://localhost:3000/docs                                                        |
 | Postman | https://www.postman.com/lively-crater-325304/workspace/out-of-orbit-parcel-service |
-| ApiKey  | 1BC6EPJ-NMYM3SY-MCPE175-N62WM7F |
-| BaseUrl | https://oops-c1ta.onrender.com |
-| Admin   | root@email.local / sesame |
-| User    | john@email.local / sesame |
+| ApiKey  | 1BC6EPJ-NMYM3SY-MCPE175-N62WM7F                                                    |
+| BaseUrl | https://oops-c1ta.onrender.com                                                     |
+| Admin   | root@email.local / sesame                                                          |
+| User    | john@email.local / sesame                                                          |
 
 ### Docker compose scripts
 
