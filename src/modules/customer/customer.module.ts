@@ -6,6 +6,7 @@ import { CreateShipmentUseCase } from './application/use-cases/create-shipment/c
 import { FindShipmentsByUserIdUseCase } from './application/use-cases/find-shipments-by-user-id/find-shipments-by-user-id.use-case';
 import { CancelShipmentByTrackingNumberUseCase } from './application/use-cases/cancel-shipment-by-tracking-number/cancel-shipment-by-tracking-number.use-case';
 import { FindShipmentByTrackingNumberUseCase } from './application/use-cases/find-shipment-by-tracking-number/find-shipment-by-tracking-number.use-case';
+import { CreateShipmentBulkUseCase } from './application/use-cases/create-shipments-bulk/create-shipments-bulk.use-case';
 
 @Module({
   imports: [CqrsModule],
@@ -15,6 +16,7 @@ import { FindShipmentByTrackingNumberUseCase } from './application/use-cases/fin
     FindShipmentsByUserIdUseCase,
     CancelShipmentByTrackingNumberUseCase,
     FindShipmentByTrackingNumberUseCase,
+    CreateShipmentBulkUseCase,
   ],
 })
 export class CustomerModule {}
