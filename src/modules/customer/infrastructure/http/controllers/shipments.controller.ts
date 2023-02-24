@@ -27,9 +27,6 @@ import { FindShipmentByTrackingNumberUseCase } from 'src/modules/customer/applic
 import { FindShipmentsByUserIdUseCase } from 'src/modules/customer/application/use-cases/find-shipments-by-user-id/find-shipments-by-user-id.use-case';
 import { CreateShipmentDto } from 'src/modules/shipments/infrastructure/http/dtos/create-shipment.dto';
 import { ScopeGuard } from 'src/modules/auth/application/guards/scope.guard';
-import { ShipmentEntity } from 'src/modules/shipments/domain/entities/shipment.entity';
-import { CreateShipmentBulkUseCase } from 'src/modules/customer/application/use-cases/create-shipments-bulk/create-shipments-bulk.use-case';
-import { CreateBulkDto } from 'src/modules/shipments/infrastructure/http/dtos/create-bulk-shipments.dto';
 
 @ApiTags('Customers')
 @Controller({ version: '1', path: 'customers/shipments' })
@@ -39,7 +36,6 @@ export class ShipmentsController {
     private readonly findShipmentByTrackingNumberUseCase: FindShipmentByTrackingNumberUseCase,
     private readonly findShipmentsByUserIdUseCase: FindShipmentsByUserIdUseCase,
     private readonly createShipmentUseCase: CreateShipmentUseCase,
-    private readonly createShipmentBulkUseCase: CreateShipmentBulkUseCase,
   ) {}
 
   @ApiOperation({ summary: 'Create shipment' })
@@ -108,25 +104,5 @@ export class ShipmentsController {
   @Patch('/:trackingNumber/cancel')
   public cancel(@Param('trackingNumber') trackingNumber: string) {
     return this.cancelShipmentByTrackingNumberUseCase.run(trackingNumber);
-  }
-
-  @ApiOperation({ summary: 'Create a collection of shipments' })
-  @ApiBearerAuth()
-  @ApiTooManyRequestsResponse({
-    status: HttpStatus.TOO_MANY_REQUESTS,
-    description: 'Too many requests in a short time',
-  })
-  @ApiUnauthorizedResponse({
-    status: HttpStatus.UNAUTHORIZED,
-    description: 'Invalid token',
-  })
-  @UseGuards(JwtGuard, ScopeGuard)
-  @Scopes(Scope.WEB)
-  @Patch('/bulk')
-  public createBulk(
-    @Body() body: CreateBulkDto,
-    @Req() req: UserRequest,
-  ): Promise<ShipmentEntity[]> {
-    return this.createShipmentBulkUseCase.run(body.shipments, req.user.id);
   }
 }
