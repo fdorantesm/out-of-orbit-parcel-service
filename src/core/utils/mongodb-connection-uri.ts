@@ -5,7 +5,6 @@ export function getConnectionString(
   port?: number,
   username?: string,
   password?: string,
-  database?: string,
 ) {
   return new ConnectionString('', {
     user: username,
