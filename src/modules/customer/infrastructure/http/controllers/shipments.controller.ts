@@ -12,7 +12,9 @@ import {
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
+  ApiBody,
   ApiOperation,
+  ApiResponse,
   ApiTags,
   ApiTooManyRequestsResponse,
   ApiUnauthorizedResponse,
@@ -30,6 +32,9 @@ import { ScopeGuard } from 'src/modules/auth/application/guards/scope.guard';
 import { ShipmentEntity } from 'src/modules/shipments/domain/entities/shipment.entity';
 import { CreateShipmentBulkUseCase } from 'src/modules/customer/application/use-cases/create-shipments-bulk/create-shipments-bulk.use-case';
 import { CreateBulkDto } from 'src/modules/shipments/infrastructure/http/dtos/create-bulk-shipments.dto';
+import { Bulk } from '@app/common/types/general/bulk.type';
+import { BulkException } from '@app/common/types/general/bulk-exception.type';
+import { Shipment } from 'src/modules/shipments/domain/interfaces/shipment.interface';
 
 @ApiTags('Customers')
 @Controller({ version: '1', path: 'customers/shipments' })
@@ -122,11 +127,12 @@ export class ShipmentsController {
   })
   @UseGuards(JwtGuard, ScopeGuard)
   @Scopes(Scope.WEB)
-  @Patch('/bulk')
+  @Post('/bulk')
+  @ApiBody({ type: CreateBulkDto })
   public createBulk(
     @Body() body: CreateBulkDto,
     @Req() req: UserRequest,
-  ): Promise<ShipmentEntity[]> {
+  ): Promise<Bulk<ShipmentEntity, BulkException<Partial<Shipment>>>> {
     return this.createShipmentBulkUseCase.run(body.shipments, req.user.id);
   }
 }

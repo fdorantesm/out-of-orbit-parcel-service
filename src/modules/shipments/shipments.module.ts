@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { CqrsModule } from '@nestjs/cqrs';
 
 import { ShipmentController } from './infrastructure/http/controllers/shipment.controller';
 import { ShipmentModelConfig } from './infrastructure/database';
@@ -12,10 +13,10 @@ import { UpdateShipmentStatusUseCase } from './application/use-cases/update-ship
 import { CancelShipmentUseCase } from './application/use-cases/cancel-shipment/cancel-shipment.use-case';
 import { IdGeneratorModule } from '@app/id-generator';
 import { ShortIdGeneratorModule } from '@app/short-id-generator';
-import { CqrsModule } from '@nestjs/cqrs';
 import { QueryHandlers } from './domain/queries';
 import { CommandHandlers } from './domain/commands';
 import { SharedModule } from '../shared/shared.module';
+import { CreateShipmentsBulkUseCase } from './application/use-cases/create-shipments-bulk/create-shipment.use-case';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { SharedModule } from '../shared/shared.module';
     ListShipmentsUseCase,
     UpdateShipmentStatusUseCase,
     FindShipmentByTrackingNumberUseCase,
+    CreateShipmentsBulkUseCase,
   ],
   controllers: [ShipmentController],
 })

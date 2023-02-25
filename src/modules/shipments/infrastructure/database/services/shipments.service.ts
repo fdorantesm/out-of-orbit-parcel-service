@@ -23,6 +23,12 @@ export class ShipmentsService
     return this.shipmentsRepository.create(data);
   }
 
+  public createBulk(
+    data: Shipment[],
+  ): ShipmentEntity[] | Promise<ShipmentEntity[]> {
+    return this.shipmentsRepository.createBulk(data);
+  }
+
   public find(
     filter: Partial<Shipment>,
   ): ShipmentEntity[] | Promise<ShipmentEntity[]> {
