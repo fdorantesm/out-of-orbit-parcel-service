@@ -16,6 +16,14 @@ export class ShipmentsMemoryRepository
     return ShipmentEntity.create(data);
   }
 
+  public createBulk(shipments: Shipment[]): ShipmentEntity[] {
+    const shipEntities = shipments.map((shipment) =>
+      ShipmentEntity.create(shipment),
+    );
+    this.shipmentList.concat(shipEntities);
+    return shipEntities;
+  }
+
   // eslint-disable-next-line
   public find(filter: Partial<Shipment>): ShipmentEntity[] {
     return this.shipmentList.map((shipment) =>

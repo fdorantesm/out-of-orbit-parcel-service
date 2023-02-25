@@ -2,7 +2,10 @@ import { PackageSize } from '../enums/size.enum';
 import { ShipmentStatus } from '../enums/status.enum';
 import { ShipmentAddress } from '../interfaces/address.interface';
 import { ShipmentPackage } from '../interfaces/package.interface';
-import { Shipment } from '../interfaces/shipment.interface';
+import {
+  CreateShipmentPayload,
+  Shipment,
+} from '../interfaces/shipment.interface';
 import { DateService } from 'src/modules/shared/services/date.service';
 
 const dateService = new DateService();
@@ -20,12 +23,16 @@ export class ShipmentEntity implements Shipment {
   ) {}
 
   static create(shipment: Shipment): ShipmentEntity {
+    const packet = {
+      ...shipment.packet,
+      size: this.calcSize(shipment.packet.weight),
+    };
     return new ShipmentEntity(
       shipment.uuid,
       shipment.trackingNumber,
       shipment.origin,
       shipment.destination,
-      shipment.packet,
+      packet,
       shipment.userId,
       shipment.status,
       shipment.createdAt,
@@ -76,6 +83,12 @@ export class ShipmentEntity implements Shipment {
 
   public static getInitialStatus() {
     return ShipmentStatus.CREATED;
+  }
+
+  public static isSomePackageNotSupported(
+    shipments: Shipment[] | CreateShipmentPayload[],
+  ): boolean {
+    return shipments.some((shipment) => shipment.packet.weight > 25000);
   }
 
   public toJson() {
