@@ -470,13 +470,7 @@
         "apiKey": "1BC6EPJ-NMYM3SY-MCPE175-N62WM7F"
       },
       "dataPropertyOrder": {
-        "&": [
-          "host",
-          "adminToken",
-          "userToken",
-          "user2Token",
-          "apiKey"
-        ]
+        "&": ["host", "adminToken", "userToken", "user2Token", "apiKey"]
       },
       "color": null,
       "isPrivate": false,
