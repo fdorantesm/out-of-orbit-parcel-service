@@ -10,6 +10,9 @@ import { PackageWeightTooHeavyException } from 'src/modules/shipments/domain/exc
 import { ShipmentsService } from 'src/modules/shipments/infrastructure/database/services/shipments.service';
 import { DateService } from 'src/modules/shared/services/date.service';
 import { CreateShipmentRequestContext } from '../../interfaces/create-shipment/request-context.interface';
+import { Bulk } from '@app/common/types/general/bulk.type';
+import { BulkException } from '@app/common/types/general/bulk-exception.type';
+import { Shipment } from 'src/modules/shipments/domain/interfaces/shipment.interface';
 
 @Injectable()
 export class CreateShipmentsBulkUseCase implements UseCase {
@@ -21,37 +24,50 @@ export class CreateShipmentsBulkUseCase implements UseCase {
     private readonly shortIdGeneratorService: ShortIdGeneratorService,
   ) {}
 
-  public async run(shipmentsSet: CreateShipmentRequestContext[]): Promise<any> {
-    const result = await PromisePool.withConcurrency(1)
+  public async run(
+    shipmentsSet: CreateShipmentRequestContext[],
+  ): Promise<Bulk<ShipmentEntity, BulkException<Partial<Shipment>>>> {
+    const errors: BulkException<Partial<Shipment>>[] = [];
+    const task = await PromisePool.withConcurrency(50)
       .for(chunk(shipmentsSet, 50))
       .process(async (chunk: CreateShipmentRequestContext[]) => {
-        const shipments = chunk.map((part) => {
-          if (ShipmentEntity.isTooHeavy(part.packet.weight)) {
-            throw new PackageWeightTooHeavyException();
-          }
-
-          const packet = {
+        const shipments = chunk.map((part) => ({
+          uuid: this.idGeneratorModule.exec(),
+          trackingNumber: this.shortIdGeneratorService.exec(),
+          origin: part.origin,
+          destination: part.destination,
+          packet: {
             ...part.packet,
             size: ShipmentEntity.calcSize(part.packet.weight),
-          };
+          },
+          status: ShipmentEntity.getInitialStatus(),
+          userId: part.userId,
+          createdAt: this.dateService.create(),
+        }));
 
-          return {
-            packet,
-            uuid: this.idGeneratorModule.exec(),
-            trackingNumber: this.shortIdGeneratorService.exec(),
-            origin: part.origin,
-            destination: part.destination,
-            status: ShipmentEntity.getInitialStatus(),
-            userId: part.userId,
-            createdAt: this.dateService.create(),
-          };
-        });
+        shipments
+          .filter((shipment) =>
+            ShipmentEntity.isTooHeavy(shipment.packet.weight),
+          )
+          .forEach((shipment) =>
+            errors.push({
+              payload: shipment,
+              error: new PackageWeightTooHeavyException().toJson(),
+            }),
+          );
 
-        const shipment = await this.shipmentsService.createBulk(shipments);
+        const bulk = await this.shipmentsService.createBulk(
+          shipments.filter(
+            (shipment) => !ShipmentEntity.isTooHeavy(shipment.packet.weight),
+          ),
+        );
 
-        return shipment;
+        return bulk;
       });
 
-    console.log(result);
+    return {
+      errors,
+      items: task.results.flat(),
+    };
   }
 }

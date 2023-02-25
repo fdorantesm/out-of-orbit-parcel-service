@@ -1,10 +1,7 @@
 import { PackageSize } from '../enums/size.enum';
 import { ShipmentStatus } from '../enums/status.enum';
 import { ShipmentAddress } from '../interfaces/address.interface';
-import {
-  CreateShipmentPackage,
-  ShipmentPackage,
-} from '../interfaces/package.interface';
+import { ShipmentPackage } from '../interfaces/package.interface';
 import {
   CreateShipmentPayload,
   Shipment,
