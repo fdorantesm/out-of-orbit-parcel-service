@@ -50,4 +50,11 @@ export class ShipmentsRepository
     const query = await this.shipmentModel.deleteOne(filter).exec();
     return Boolean(query.deletedCount);
   }
+
+  public async createBulk(payload: Shipment[]): Promise<ShipmentEntity[]> {
+    const shipments = await this.shipmentModel.insertMany(payload);
+    return shipments.map((shipment) =>
+      ShipmentEntity.create(shipment.toJSON()),
+    );
+  }
 }

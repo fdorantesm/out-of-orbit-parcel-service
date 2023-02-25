@@ -9,7 +9,7 @@ import { ConnectionString } from 'connection-string';
 import { DatabaseConnection } from '@app/common';
 import { MongooseConnectionFactory } from './mongoose-connection.factory';
 
-mongoose.set('debug', !true);
+mongoose.set('debug', true);
 
 @Injectable()
 export class MongooseFactory implements MongooseOptionsFactory {
